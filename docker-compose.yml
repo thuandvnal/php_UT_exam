@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build: .  # Chỉ định Dockerfile trong thư mục hiện tại
+    container_name: laravel_app
+    volumes:
+      - .:/var/www
+    ports:
+      - "9000:9000"
+    environment:
+      - XDEBUG_MODE=coverage
+      - XDEBUG_START_WITH_REQUEST=trigger
+    networks:
+      - app-network
+    command: ["php", "-S", "0.0.0.0:9000", "-t", "public"]
+  
+networks:
+  app-network:
+    driver: bridge
